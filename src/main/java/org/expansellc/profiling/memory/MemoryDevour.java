@@ -4,12 +4,13 @@ import java.lang.management.GarbageCollectorMXBean;
 import java.lang.management.ManagementFactory;
 import java.util.ArrayList;
 import java.util.List;
-import org.apache.commons.math3.random.*;
+import org.apache.commons.math3.random.RandomDataGenerator;
 
 public class MemoryDevour {
     
     private boolean isRunning = false;
     private List<Long> refuse = new ArrayList<Long>(100);
+    private List<GarbageCollectorMXBean> gcBeans = ManagementFactory.getGarbageCollectorMXBeans();
 
     private void execute(){
         
@@ -24,8 +25,6 @@ public class MemoryDevour {
             } catch (Exception e) {
                 System.out.println("Error sleeping this thread . . ." + e.getMessage());
             }
-
-            List<GarbageCollectorMXBean> gcBeans = ManagementFactory.getGarbageCollectorMXBeans();
 
             for (GarbageCollectorMXBean gcBean : gcBeans) {
                 System.out.println("Name: " + gcBean.getName());
